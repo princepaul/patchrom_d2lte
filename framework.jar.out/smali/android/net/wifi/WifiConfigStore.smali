@@ -5951,38 +5951,21 @@
     .locals 6
 
     .prologue
-    .line 281
-    iget-object v3, p0, Landroid/net/wifi/WifiConfigStore;->mContext:Landroid/content/Context;
+    iget-object v3, p0, Landroid/net/wifi/WifiConfigStore;->mWifiAutoConnController:Landroid/net/wifi/WifiAutoConnController;
 
-    invoke-virtual {v3}, Landroid/content/Context;->getResources()Landroid/content/res/Resources;
-
-    move-result-object v3
-
-    const v4, 0x111000b
-
-    invoke-virtual {v3, v4}, Landroid/content/res/Resources;->getBoolean(I)Z
+    invoke-virtual {v3}, Landroid/net/wifi/WifiAutoConnController;->shouldEnableAllNetworks()Z
 
     move-result v3
 
-    if-eqz v3, :cond_1
+    if-nez v3, :cond_miui_0
 
-    invoke-virtual {p0}, Landroid/net/wifi/WifiConfigStore;->shouldAutoConnect()Z
-
-    move-result v3
-
-    if-nez v3, :cond_1
-
-    .line 302
-    :cond_0
-    :goto_0
     return-void
 
-    .line 286
-    :cond_1
+    :cond_miui_0
     const/4 v2, 0x0
 
-    .line 287
     .local v2, "networkEnabledStateChanged":Z
+    
     iget-object v3, p0, Landroid/net/wifi/WifiConfigStore;->mConfiguredNetworks:Ljava/util/HashMap;
 
     invoke-virtual {v3}, Ljava/util/HashMap;->values()Ljava/util/Collection;
