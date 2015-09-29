@@ -1,5 +1,5 @@
 #
-# Makefile for D2LTE
+# Makefile for D2LTE - 20150929
 #
 
 # The original zip file, MUST be specified by each product
