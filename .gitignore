@@ -1,8 +1,16 @@
 ######################
 #    Ignore Files    #
 ######################
+.delete-zip-file-when-clean
 *zip
+*sh   # Will publish later
+*py   # Will publish later
+
 ######################
 # Ignore Directories #
 ######################
+
 out/
+ROM/
+temp/
+stockrom/  #Will publish later
