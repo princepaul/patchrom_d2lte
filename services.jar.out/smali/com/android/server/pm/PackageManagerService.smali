@@ -21925,7 +21925,6 @@
     .line 4607
     const/4 v3, 0x0
 
-    :try_start_2
     move-object/from16 v0, p0
 
     move-object/from16 v1, p1
