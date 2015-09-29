@@ -691,7 +691,7 @@
 
     goto :goto_1
 
-    :sswitch_d
+    :sswitch_10
     const-string v7, "com.android.internal.app.IAppOpsService"
 
     invoke-virtual {p2, v7}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
@@ -718,7 +718,7 @@
 
     .end local v0    # "_arg0":Lcom/android/internal/app/IOpsCallback;
     .end local v4    # "_result":I
-    :sswitch_e
+    :sswitch_11
     const-string v7, "com.android.internal.app.IAppOpsService"
 
     invoke-virtual {p2, v7}, Landroid/os/Parcel;->enforceInterface(Ljava/lang/String;)V
@@ -768,6 +768,8 @@
         0xd -> :sswitch_d
         0xe -> :sswitch_e
         0xf -> :sswitch_f
+        0x10 -> :sswitch_10
+        0x11 -> :sswitch_11
         0x5f4e5446 -> :sswitch_0
     .end sparse-switch
 .end method
