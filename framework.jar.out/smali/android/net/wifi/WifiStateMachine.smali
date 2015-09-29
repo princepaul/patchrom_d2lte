@@ -8503,262 +8503,238 @@
 .end method
 
 .method private setScanResults()V
-    .locals 33
+    .locals 38
 
     .prologue
-    .line 1946
     const-string v4, ""
 
-    .line 1947
     .local v4, "bssid":Ljava/lang/String;
     const/4 v6, 0x0
 
-    .line 1948
     .local v6, "level":I
     const/4 v7, 0x0
 
-    .line 1949
     .local v7, "freq":I
     const-wide/16 v8, 0x0
 
-    .line 1950
     .local v8, "tsf":J
     const-string v5, ""
 
-    .line 1951
     .local v5, "flags":Ljava/lang/String;
     const/4 v3, 0x0
 
-    .line 1954
     .local v3, "wifiSsid":Landroid/net/wifi/WifiSsid;
-    new-instance v25, Ljava/lang/StringBuffer;
+    new-instance v23, Ljava/lang/StringBuffer;
 
-    invoke-direct/range {v25 .. v25}, Ljava/lang/StringBuffer;-><init>()V
+    invoke-direct/range {v23 .. v23}, Ljava/lang/StringBuffer;-><init>()V
 
-    .line 1955
-    .local v25, "scanResultsBuf":Ljava/lang/StringBuffer;
-    const/16 v26, 0x0
+    .local v23, "scanResultsBuf":Ljava/lang/StringBuffer;
+    const/16 v24, 0x0
 
-    .line 1958
-    .local v26, "sid":I
+    .local v24, "sid":I
+    const/16 v30, 0x0
+
+    .local v30, "isWpsConfigured":Z
+    const/16 v31, 0x0
+
+    .local v31, "isXiaomiRouter":Z
     :cond_0
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mWifiNative:Landroid/net/wifi/WifiNative;
 
-    move-object/from16 v29, v0
+    move-object/from16 v27, v0
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
-    move/from16 v1, v26
+    move/from16 v1, v24
 
     invoke-virtual {v0, v1}, Landroid/net/wifi/WifiNative;->scanResults(I)Ljava/lang/String;
 
-    move-result-object v28
+    move-result-object v26
 
-    .line 1959
-    .local v28, "tmpResults":Ljava/lang/String;
-    invoke-static/range {v28 .. v28}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    .local v26, "tmpResults":Ljava/lang/String;
+    invoke-static/range {v26 .. v26}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_1
+    if-eqz v27, :cond_1
 
-    .line 1979
     :goto_0
-    invoke-virtual/range {v25 .. v25}, Ljava/lang/StringBuffer;->toString()Ljava/lang/String;
+    invoke-virtual/range {v23 .. v23}, Ljava/lang/StringBuffer;->toString()Ljava/lang/String;
 
-    move-result-object v24
+    move-result-object v22
 
-    .line 1980
-    .local v24, "scanResults":Ljava/lang/String;
-    invoke-static/range {v24 .. v24}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
+    .local v22, "scanResults":Ljava/lang/String;
+    invoke-static/range {v22 .. v22}, Landroid/text/TextUtils;->isEmpty(Ljava/lang/CharSequence;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_5
+    if-eqz v27, :cond_5
 
-    .line 1981
-    move-object/from16 v0, p0
-
-    iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mScanResults:Ljava/util/List;
-
-    move-object/from16 v29, v0
-
-    invoke-interface/range {v29 .. v29}, Ljava/util/List;->clear()V
-
-    .line 2065
     :goto_1
     return-void
 
-    .line 1960
-    .end local v24    # "scanResults":Ljava/lang/String;
+    .end local v22    # "scanResults":Ljava/lang/String;
     :cond_1
-    move-object/from16 v0, v25
+    move-object/from16 v0, v23
 
-    move-object/from16 v1, v28
-
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
-
-    .line 1961
-    const-string v29, "\n"
-
-    move-object/from16 v0, v25
-
-    move-object/from16 v1, v29
+    move-object/from16 v1, v26
 
     invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
 
-    .line 1962
-    const-string v29, "\n"
+    const-string v27, "\n"
 
-    invoke-virtual/range {v28 .. v29}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
+    move-object/from16 v0, v23
+
+    move-object/from16 v1, v27
+
+    invoke-virtual {v0, v1}, Ljava/lang/StringBuffer;->append(Ljava/lang/String;)Ljava/lang/StringBuffer;
+
+    const-string v27, "\n"
+
+    invoke-virtual/range {v26 .. v27}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
 
     move-result-object v21
 
-    .line 1963
     .local v21, "lines":[Ljava/lang/String;
-    const/16 v26, -0x1
+    const/16 v24, -0x1
 
-    .line 1964
     move-object/from16 v0, v21
 
     array-length v0, v0
 
-    move/from16 v29, v0
+    move/from16 v27, v0
 
-    add-int/lit8 v16, v29, -0x1
+    add-int/lit8 v16, v27, -0x1
 
     .local v16, "i":I
     :goto_2
     if-ltz v16, :cond_2
 
-    .line 1965
-    aget-object v29, v21, v16
+    aget-object v27, v21, v16
 
-    const-string v30, "####"
+    const-string v28, "####"
 
-    invoke-virtual/range {v29 .. v30}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    invoke-virtual/range {v27 .. v28}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_3
+    if-eqz v27, :cond_3
 
-    .line 1976
     :cond_2
     :goto_3
-    const/16 v29, -0x1
+    const/16 v27, -0x1
 
-    move/from16 v0, v26
+    move/from16 v0, v24
 
-    move/from16 v1, v29
+    move/from16 v1, v27
 
     if-ne v0, v1, :cond_0
 
     goto :goto_0
 
-    .line 1967
     :cond_3
-    aget-object v29, v21, v16
+    aget-object v27, v21, v16
 
-    const-string v30, "id="
+    const-string v28, "id="
 
-    invoke-virtual/range {v29 .. v30}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+    invoke-virtual/range {v27 .. v28}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_4
+    if-eqz v27, :cond_4
 
-    .line 1969
     :try_start_0
-    aget-object v29, v21, v16
+    aget-object v27, v21, v16
 
-    const-string v30, "id="
+    const-string v28, "id="
 
-    invoke-virtual/range {v30 .. v30}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v28 .. v28}, Ljava/lang/String;->length()I
 
-    move-result v30
+    move-result v28
 
-    invoke-virtual/range {v29 .. v30}, Ljava/lang/String;->substring(I)Ljava/lang/String;
+    invoke-virtual/range {v27 .. v28}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-static/range {v29 .. v29}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+    invoke-static/range {v27 .. v27}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
     :try_end_0
-    .catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_4
+    .catch Ljava/lang/NumberFormatException; {:try_start_0 .. :try_end_0} :catch_3
 
-    move-result v29
+    move-result v27
 
-    add-int/lit8 v26, v29, 0x1
+    add-int/lit8 v24, v27, 0x1
 
     goto :goto_3
 
-    .line 1964
     :cond_4
     add-int/lit8 v16, v16, -0x1
 
     goto :goto_2
 
-    .line 1988
     .end local v16    # "i":I
     .end local v21    # "lines":[Ljava/lang/String;
-    .restart local v24    # "scanResults":Ljava/lang/String;
+    .restart local v22    # "scanResults":Ljava/lang/String;
     :cond_5
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mScanResultCache:Landroid/util/LruCache;
 
-    move-object/from16 v30, v0
+    move-object/from16 v28, v0
 
-    monitor-enter v30
+    monitor-enter v28
 
-    .line 1989
     :try_start_1
-    new-instance v29, Ljava/util/ArrayList;
+    new-instance v27, Ljava/util/ArrayList;
 
-    invoke-direct/range {v29 .. v29}, Ljava/util/ArrayList;-><init>()V
+    invoke-direct/range {v27 .. v27}, Ljava/util/ArrayList;-><init>()V
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
     move-object/from16 v1, p0
 
     iput-object v0, v1, Landroid/net/wifi/WifiStateMachine;->mScanResults:Ljava/util/List;
 
-    .line 1990
-    const-string v29, "\n"
+    const-string v27, "\n"
 
-    move-object/from16 v0, v24
+    move-object/from16 v0, v22
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->split(Ljava/lang/String;)[Ljava/lang/String;
 
     move-result-object v21
 
-    .line 1991
     .restart local v21    # "lines":[Ljava/lang/String;
-    const-string v29, "bssid="
+    const-string v27, "bssid="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
     move-result v12
 
-    .line 1992
     .local v12, "bssidStrLen":I
-    const-string v29, "flags="
+    const-string v27, "flags="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
     move-result v14
 
-    .line 1994
     .local v14, "flagLen":I
-    invoke-static {}, Landroid/os/SystemClock;->elapsedRealtime()J
+    const-string v32, "wps_state="
 
-    move-result-wide v22
+    invoke-virtual/range {v32 .. v32}, Ljava/lang/String;->length()I
 
-    .line 1996
-    .local v22, "now":J
+    move-result v32
+
+    .local v32, "wpsStateStrLength":I
+    const-string v33, "wps_device_name="
+
+    invoke-virtual/range {v33 .. v33}, Ljava/lang/String;->length()I
+
+    move-result v33
+
+    .local v33, "wpsDeviceNameStrLength":I
     move-object/from16 v10, v21
 
     .local v10, "arr$":[Ljava/lang/String;
@@ -8775,40 +8751,38 @@
 
     move/from16 v1, v19
 
-    if-ge v0, v1, :cond_13
+    if-ge v0, v1, :cond_12
 
     aget-object v20, v10, v17
 
-    .line 1997
     .local v20, "line":Ljava/lang/String;
-    const-string v29, "bssid="
+    const-string v27, "bssid="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_7
+    if-eqz v27, :cond_7
 
-    .line 1998
     new-instance v11, Ljava/lang/String;
 
     invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->getBytes()[B
 
-    move-result-object v29
+    move-result-object v27
 
     invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->length()I
 
-    move-result v31
+    move-result v29
 
-    sub-int v31, v31, v12
+    sub-int v29, v29, v12
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
-    move/from16 v1, v31
+    move/from16 v1, v29
 
     invoke-direct {v11, v0, v12, v1}, Ljava/lang/String;-><init>([BII)V
 
@@ -8816,7 +8790,6 @@
     .local v11, "bssid":Ljava/lang/String;
     move-object v4, v11
 
-    .line 1996
     .end local v11    # "bssid":Ljava/lang/String;
     .restart local v4    # "bssid":Ljava/lang/String;
     :cond_6
@@ -8825,39 +8798,37 @@
 
     goto :goto_4
 
-    .line 1999
     :cond_7
-    const-string v29, "freq="
+    const-string v27, "freq="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     :try_end_1
     .catchall {:try_start_1 .. :try_end_1} :catchall_0
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_8
+    if-eqz v27, :cond_8
 
-    .line 2001
     :try_start_2
-    const-string v29, "freq="
+    const-string v27, "freq="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
-    move-result v29
+    move-result v27
 
     move-object/from16 v0, v20
 
-    move/from16 v1, v29
+    move/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-static/range {v29 .. v29}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+    invoke-static/range {v27 .. v27}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
     :try_end_2
     .catch Ljava/lang/NumberFormatException; {:try_start_2 .. :try_end_2} :catch_0
     .catchall {:try_start_2 .. :try_end_2} :catchall_0
@@ -8866,111 +8837,100 @@
 
     goto :goto_5
 
-    .line 2002
     :catch_0
     move-exception v13
 
-    .line 2003
     .local v13, "e":Ljava/lang/NumberFormatException;
     const/4 v7, 0x0
 
-    .line 2004
     goto :goto_5
 
-    .line 2005
     .end local v13    # "e":Ljava/lang/NumberFormatException;
     :cond_8
     :try_start_3
-    const-string v29, "level="
+    const-string v27, "level="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     :try_end_3
     .catchall {:try_start_3 .. :try_end_3} :catchall_0
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_9
+    if-eqz v27, :cond_9
 
-    .line 2007
     :try_start_4
-    const-string v29, "level="
+    const-string v27, "level="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
-    move-result v29
+    move-result v27
 
     move-object/from16 v0, v20
 
-    move/from16 v1, v29
+    move/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-static/range {v29 .. v29}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
+    invoke-static/range {v27 .. v27}, Ljava/lang/Integer;->parseInt(Ljava/lang/String;)I
     :try_end_4
     .catch Ljava/lang/NumberFormatException; {:try_start_4 .. :try_end_4} :catch_1
     .catchall {:try_start_4 .. :try_end_4} :catchall_0
 
     move-result v6
 
-    .line 2011
     if-lez v6, :cond_6
 
     add-int/lit16 v6, v6, -0x100
 
     goto :goto_5
 
-    .line 2012
     :catch_1
     move-exception v13
 
-    .line 2013
     .restart local v13    # "e":Ljava/lang/NumberFormatException;
     const/4 v6, 0x0
 
-    .line 2014
     goto :goto_5
 
-    .line 2015
     .end local v13    # "e":Ljava/lang/NumberFormatException;
     :cond_9
     :try_start_5
-    const-string/jumbo v29, "tsf="
+    const-string v27, "tsf="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
     :try_end_5
     .catchall {:try_start_5 .. :try_end_5} :catchall_0
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_a
+    if-eqz v27, :cond_a
 
-    .line 2017
     :try_start_6
-    const-string/jumbo v29, "tsf="
+    const-string v27, "tsf="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
-    move-result v29
+    move-result v27
 
     move-object/from16 v0, v20
 
-    move/from16 v1, v29
+    move/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-static/range {v29 .. v29}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
+    invoke-static/range {v27 .. v27}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
     :try_end_6
     .catch Ljava/lang/NumberFormatException; {:try_start_6 .. :try_end_6} :catch_2
     .catchall {:try_start_6 .. :try_end_6} :catchall_0
@@ -8979,143 +8939,44 @@
 
     goto :goto_5
 
-    .line 2018
     :catch_2
     move-exception v13
 
-    .line 2019
     .restart local v13    # "e":Ljava/lang/NumberFormatException;
     const-wide/16 v8, 0x0
 
-    .line 2020
     goto :goto_5
 
-    .line 2021
     .end local v13    # "e":Ljava/lang/NumberFormatException;
     :cond_a
     :try_start_7
-    const-string v29, "age="
+    const-string v27, "flags="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-    :try_end_7
-    .catchall {:try_start_7 .. :try_end_7} :catchall_0
-
-    move-result v29
-
-    if-eqz v29, :cond_b
-
-    .line 2023
-    :try_start_8
-    const-string v29, "age="
-
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
-
-    move-result v29
-
-    move-object/from16 v0, v20
-
-    move/from16 v1, v29
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
-
-    move-result-object v29
-
-    invoke-static/range {v29 .. v29}, Ljava/lang/Long;->parseLong(Ljava/lang/String;)J
-    :try_end_8
-    .catch Ljava/lang/NumberFormatException; {:try_start_8 .. :try_end_8} :catch_3
-    .catchall {:try_start_8 .. :try_end_8} :catchall_0
-
-    move-result-wide v31
-
-    sub-long v8, v22, v31
-
-    .line 2024
-    const-wide/16 v31, 0x3e8
-
-    mul-long v8, v8, v31
-
-    goto/16 :goto_5
-
-    .line 2025
-    :catch_3
-    move-exception v13
-
-    .line 2026
-    .restart local v13    # "e":Ljava/lang/NumberFormatException;
-    :try_start_9
-    new-instance v29, Ljava/lang/StringBuilder;
-
-    invoke-direct/range {v29 .. v29}, Ljava/lang/StringBuilder;-><init>()V
-
-    const-string v31, "Invalid timestamp: "
-
-    move-object/from16 v0, v29
-
-    move-object/from16 v1, v31
-
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v29
-
-    move-object/from16 v0, v29
-
-    move-object/from16 v1, v20
-
-    invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v29
-
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
-
-    move-result-object v29
-
-    move-object/from16 v0, p0
-
-    move-object/from16 v1, v29
-
-    invoke-virtual {v0, v1}, Landroid/net/wifi/WifiStateMachine;->loge(Ljava/lang/String;)V
-
-    .line 2027
-    const-wide/16 v8, 0x0
-
-    .line 2028
-    goto/16 :goto_5
-
-    .line 2029
-    .end local v13    # "e":Ljava/lang/NumberFormatException;
-    :cond_b
-    const-string v29, "flags="
-
-    move-object/from16 v0, v20
-
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_c
+    if-eqz v27, :cond_b
 
-    .line 2030
     new-instance v15, Ljava/lang/String;
 
     invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->getBytes()[B
 
-    move-result-object v29
+    move-result-object v27
 
     invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->length()I
 
-    move-result v31
+    move-result v29
 
-    sub-int v31, v31, v14
+    sub-int v29, v29, v14
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
-    move/from16 v1, v31
+    move/from16 v1, v29
 
     invoke-direct {v15, v0, v14, v1}, Ljava/lang/String;-><init>([BII)V
 
@@ -9127,112 +8988,105 @@
     .restart local v5    # "flags":Ljava/lang/String;
     goto/16 :goto_5
 
-    .line 2031
-    :cond_c
-    const-string/jumbo v29, "ssid="
+    :cond_b
+    const-string v27, "ssid="
 
     move-object/from16 v0, v20
 
-    move-object/from16 v1, v29
+    move-object/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
 
-    move-result v29
+    move-result v27
 
-    if-eqz v29, :cond_d
+    if-eqz v27, :cond_c
 
-    .line 2032
-    const-string/jumbo v29, "ssid="
+    const-string v27, "ssid="
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/String;->length()I
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/String;->length()I
 
-    move-result v29
+    move-result v27
 
     move-object/from16 v0, v20
 
-    move/from16 v1, v29
+    move/from16 v1, v27
 
     invoke-virtual {v0, v1}, Ljava/lang/String;->substring(I)Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-static/range {v29 .. v29}, Landroid/net/wifi/WifiSsid;->createFromAsciiEncoded(Ljava/lang/String;)Landroid/net/wifi/WifiSsid;
+    invoke-static/range {v27 .. v27}, Landroid/net/wifi/WifiSsid;->createFromAsciiEncoded(Ljava/lang/String;)Landroid/net/wifi/WifiSsid;
 
     move-result-object v3
 
     goto/16 :goto_5
 
-    .line 2034
-    :cond_d
-    const-string v29, "===="
+    :cond_c
+    const-string v27, "===="
 
     move-object/from16 v0, v20
-
-    move-object/from16 v1, v29
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-
-    move-result v29
-
-    if-nez v29, :cond_e
-
-    const-string v29, "####"
-
-    move-object/from16 v0, v20
-
-    move-object/from16 v1, v29
-
-    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
-
-    move-result v29
-
-    if-eqz v29, :cond_6
-
-    .line 2035
-    :cond_e
-    if-eqz v4, :cond_f
-
-    .line 2036
-    if-eqz v3, :cond_10
-
-    invoke-virtual {v3}, Landroid/net/wifi/WifiSsid;->toString()Ljava/lang/String;
-
-    move-result-object v27
-
-    .line 2037
-    .local v27, "ssid":Ljava/lang/String;
-    :goto_6
-    new-instance v29, Ljava/lang/StringBuilder;
-
-    invoke-direct/range {v29 .. v29}, Ljava/lang/StringBuilder;-><init>()V
-
-    move-object/from16 v0, v29
-
-    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
-
-    move-result-object v29
-
-    move-object/from16 v0, v29
 
     move-object/from16 v1, v27
 
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v27
+
+    if-nez v27, :cond_d
+
+    const-string v27, "####"
+
+    move-object/from16 v0, v20
+
+    move-object/from16 v1, v27
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v27
+
+    if-eqz v27, :cond_miui_1
+
+    :cond_d
+    if-eqz v4, :cond_e
+
+    if-eqz v3, :cond_f
+
+    invoke-virtual {v3}, Landroid/net/wifi/WifiSsid;->toString()Ljava/lang/String;
+
+    move-result-object v25
+
+    .local v25, "ssid":Ljava/lang/String;
+    :goto_6
+    new-instance v27, Ljava/lang/StringBuilder;
+
+    invoke-direct/range {v27 .. v27}, Ljava/lang/StringBuilder;-><init>()V
+
+    move-object/from16 v0, v27
+
+    invoke-virtual {v0, v4}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
+
+    move-result-object v27
+
+    move-object/from16 v0, v27
+
+    move-object/from16 v1, v25
+
     invoke-virtual {v0, v1}, Ljava/lang/StringBuilder;->append(Ljava/lang/String;)Ljava/lang/StringBuilder;
 
-    move-result-object v29
+    move-result-object v27
 
-    invoke-virtual/range {v29 .. v29}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
+    invoke-virtual/range {v27 .. v27}, Ljava/lang/StringBuilder;->toString()Ljava/lang/String;
 
     move-result-object v18
 
-    .line 2038
     .local v18, "key":Ljava/lang/String;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mScanResultCache:Landroid/util/LruCache;
 
-    move-object/from16 v29, v0
+    move-object/from16 v27, v0
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
     move-object/from16 v1, v18
 
@@ -9242,38 +9096,30 @@
 
     check-cast v2, Landroid/net/wifi/ScanResult;
 
-    .line 2039
     .local v2, "scanResult":Landroid/net/wifi/ScanResult;
-    if-eqz v2, :cond_12
+    if-eqz v2, :cond_11
 
-    .line 2040
     iput v6, v2, Landroid/net/wifi/ScanResult;->level:I
 
-    .line 2041
     iput-object v3, v2, Landroid/net/wifi/ScanResult;->wifiSsid:Landroid/net/wifi/WifiSsid;
 
-    .line 2043
-    if-eqz v3, :cond_11
+    if-eqz v3, :cond_10
 
     invoke-virtual {v3}, Landroid/net/wifi/WifiSsid;->toString()Ljava/lang/String;
 
-    move-result-object v29
+    move-result-object v27
 
     :goto_7
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
     iput-object v0, v2, Landroid/net/wifi/ScanResult;->SSID:Ljava/lang/String;
 
-    .line 2045
     iput-object v5, v2, Landroid/net/wifi/ScanResult;->capabilities:Ljava/lang/String;
 
-    .line 2046
     iput v7, v2, Landroid/net/wifi/ScanResult;->frequency:I
 
-    .line 2047
     iput-wide v8, v2, Landroid/net/wifi/ScanResult;->timestamp:J
 
-    .line 2054
     :goto_8
     move/from16 v0, v30
 
@@ -9287,16 +9133,16 @@
 
     iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mScanResults:Ljava/util/List;
 
-    move-object/from16 v29, v0
+    move-object/from16 v27, v0
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
     invoke-interface {v0, v2}, Ljava/util/List;->add(Ljava/lang/Object;)Z
 
     .end local v2    # "scanResult":Landroid/net/wifi/ScanResult;
     .end local v18    # "key":Ljava/lang/String;
-    .end local v27    # "ssid":Ljava/lang/String;
-    :cond_f
+    .end local v25    # "ssid":Ljava/lang/String;
+    :cond_e
     const/4 v4, 0x0
 
     const/4 v6, 0x0
@@ -9315,35 +9161,33 @@
 
     goto/16 :goto_5
 
-    :cond_10
-    const-string v27, "<unknown ssid>"
+    :cond_f
+    const-string v25, "<unknown ssid>"
 
     goto :goto_6
 
     .restart local v2    # "scanResult":Landroid/net/wifi/ScanResult;
     .restart local v18    # "key":Ljava/lang/String;
-    .restart local v27    # "ssid":Ljava/lang/String;
-    :cond_11
-    const-string v29, "<unknown ssid>"
+    .restart local v25    # "ssid":Ljava/lang/String;
+    :cond_10
+    const-string v27, "<unknown ssid>"
 
     goto :goto_7
 
-    .line 2049
-    :cond_12
+    :cond_11
     new-instance v2, Landroid/net/wifi/ScanResult;
 
     .end local v2    # "scanResult":Landroid/net/wifi/ScanResult;
     invoke-direct/range {v2 .. v9}, Landroid/net/wifi/ScanResult;-><init>(Landroid/net/wifi/WifiSsid;Ljava/lang/String;Ljava/lang/String;IIJ)V
 
-    .line 2052
     .restart local v2    # "scanResult":Landroid/net/wifi/ScanResult;
     move-object/from16 v0, p0
 
     iget-object v0, v0, Landroid/net/wifi/WifiStateMachine;->mScanResultCache:Landroid/util/LruCache;
 
-    move-object/from16 v29, v0
+    move-object/from16 v27, v0
 
-    move-object/from16 v0, v29
+    move-object/from16 v0, v27
 
     move-object/from16 v1, v18
 
@@ -9351,7 +9195,6 @@
 
     goto :goto_8
 
-    .line 2064
     .end local v2    # "scanResult":Landroid/net/wifi/ScanResult;
     .end local v10    # "arr$":[Ljava/lang/String;
     .end local v12    # "bssidStrLen":I
@@ -9361,16 +9204,15 @@
     .end local v19    # "len$":I
     .end local v20    # "line":Ljava/lang/String;
     .end local v21    # "lines":[Ljava/lang/String;
-    .end local v22    # "now":J
-    .end local v27    # "ssid":Ljava/lang/String;
+    .end local v25    # "ssid":Ljava/lang/String;
     :catchall_0
-    move-exception v29
+    move-exception v27
 
-    monitor-exit v30
-    :try_end_9
-    .catchall {:try_start_9 .. :try_end_9} :catchall_0
+    monitor-exit v28
+    :try_end_7
+    .catchall {:try_start_7 .. :try_end_7} :catchall_0
 
-    throw v29
+    throw v27
 
     .restart local v10    # "arr$":[Ljava/lang/String;
     .restart local v12    # "bssidStrLen":I
@@ -9378,26 +9220,131 @@
     .restart local v17    # "i$":I
     .restart local v19    # "len$":I
     .restart local v21    # "lines":[Ljava/lang/String;
-    .restart local v22    # "now":J
-    :cond_13
-    :try_start_a
-    monitor-exit v30
-    :try_end_a
-    .catchall {:try_start_a .. :try_end_a} :catchall_0
+    :cond_miui_1
+    :try_start_8
+    const-string v34, "wps_state="
+
+    move-object/from16 v0, v20
+
+    move-object/from16 v1, v34
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v34
+
+    if-eqz v34, :cond_miui_0
+
+    new-instance v35, Ljava/lang/String;
+
+    invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->getBytes()[B
+
+    move-result-object v34
+
+    invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->length()I
+
+    move-result v36
+
+    sub-int v36, v36, v32
+
+    move-object/from16 v0, v35
+
+    move-object/from16 v1, v34
+
+    move-object/from16 v37, v3
+    
+    move/from16 v2, v32
+
+    move/from16 v3, v36
+
+    invoke-direct {v0, v1, v2, v3}, Ljava/lang/String;-><init>([BII)V
+
+    .local v35, "wpsStateStr":Ljava/lang/String;
+
+    move-object/from16 v3, v37
+
+    const-string v34, "configured"
+
+    move-object/from16 v0, v34
+
+    move-object/from16 v1, v35
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v30
+
+    goto/16 :goto_5
+
+    .end local v35    # "wpsStateStr":Ljava/lang/String;
+    :cond_miui_0
+    const-string v34, "wps_device_name="
+
+    move-object/from16 v0, v20
+
+    move-object/from16 v1, v34
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->startsWith(Ljava/lang/String;)Z
+
+    move-result v34
+
+    if-eqz v34, :cond_6
+
+    new-instance v35, Ljava/lang/String;
+
+    invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->getBytes()[B
+
+    move-result-object v34
+
+    invoke-virtual/range {v20 .. v20}, Ljava/lang/String;->length()I
+
+    move-result v36
+
+    sub-int v36, v36, v33
+
+    move-object/from16 v0, v35
+
+    move-object/from16 v1, v34
+
+    move-object/from16 v37, v3
+
+    move/from16 v2, v33
+
+    move/from16 v3, v36
+
+    invoke-direct {v0, v1, v2, v3}, Ljava/lang/String;-><init>([BII)V
+
+    .local v35, "wpsDeviceNameStr":Ljava/lang/String;
+
+    move-object/from16 v3, v37
+
+    const-string v34, "XiaoMiRouter"
+
+    move-object/from16 v0, v34
+
+    move-object/from16 v1, v35
+
+    invoke-virtual {v0, v1}, Ljava/lang/String;->equals(Ljava/lang/Object;)Z
+
+    move-result v31
+
+    goto/16 :goto_5
+
+    .end local v35    # "wpsDeviceNameStr":Ljava/lang/String;
+    :cond_12
+    monitor-exit v28
+    :try_end_8
+    .catchall {:try_start_8 .. :try_end_8} :catchall_0
 
     goto/16 :goto_1
 
-    .line 1970
     .end local v10    # "arr$":[Ljava/lang/String;
     .end local v12    # "bssidStrLen":I
     .end local v14    # "flagLen":I
     .end local v17    # "i$":I
     .end local v19    # "len$":I
-    .end local v22    # "now":J
-    .end local v24    # "scanResults":Ljava/lang/String;
+    .end local v22    # "scanResults":Ljava/lang/String;
     .restart local v16    # "i":I
-    :catch_4
-    move-exception v29
+    :catch_3
+    move-exception v27
 
     goto/16 :goto_3
 .end method
