@@ -16,11 +16,13 @@ local-modified-priv-apps :=
 local-modified-jars := 
 
 # All apks from MIUI
-local-miui-removed-apps := MediaProvider SuperMarket VoiceAssist BaiduNetworkLocation GameCenter GameCenterSDKService
+local-miui-removed-apps := 
+
+#MediaProvider SuperMarket VoiceAssist BaiduNetworkLocation GameCenter GameCenterSDKService
 
 local-miui-removed-priv-apps := 
 
-local-miui-modified-apps := Email
+local-miui-modified-apps := miuisystem
 
 # All apps need to be removed from original ZIP file
 local-remove-apps   := Apollo Gallery2 Stk Launcher3 VideoEditor PicoTts HoloSpiralWallpaper MagicSmokeWallpapers Nfc \
