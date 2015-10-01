@@ -49,18 +49,18 @@ include $(PORT_BUILD)/porting.mk
 #updater := $(ZIP_DIR)/META-INF/com/google/android/updater-script
 #pre_install_data_packages := $(TMP_DIR)/pre_install_apk_pkgname.txt
 local-pre-zip-misc:
-	cp other/spn-conf.xml $(ZIP_DIR)/system/etc/spn-conf.xml
-	cp other/apns-conf.xml $(ZIP_DIR)/system/etc/apns-conf.xml
+#	cp other/spn-conf.xml $(ZIP_DIR)/system/etc/spn-conf.xml
+#	cp other/apns-conf.xml $(ZIP_DIR)/system/etc/apns-conf.xml
 	cp other/boot.img $(ZIP_DIR)/boot.img
-	cp other/system_fonts.xml $(ZIP_DIR)/system/etc/system_fonts.xml
-	cp -f other/libsqlite.so $(ZIP_DIR)/system/lib/libsqlite.so
+#	cp other/system_fonts.xml $(ZIP_DIR)/system/etc/system_fonts.xml
+#	cp -f other/libsqlite.so $(ZIP_DIR)/system/lib/libsqlite.so
 #	cp other/su $(ZIP_DIR)/system/xbin/su
 	
 	@echo Add missing stuff
 #	cp -f other/icons $(ZIP_DIR)/system/media/theme/default/icons
 #	cp -f other/extras/miui_mod_icons/*.png $(ZIP_DIR)/system/media/theme/miui_mod_icons/
 #	cp -f other/extras/lock_wallpaper $(ZIP_DIR)/system/media/theme/default/lock_wallpaper
-	cp other/XiaomiAuthenticator.apk $(ZIP_DIR)/system/app/XiaomiAuthenticator.apk
+#	cp other/XiaomiAuthenticator.apk $(ZIP_DIR)/system/app/XiaomiAuthenticator.apk
 #	cp other/lbesec $(ZIP_DIR)/system/xbin/lbesec
 	
 	@echo Update build.prop
@@ -68,10 +68,10 @@ local-pre-zip-misc:
 	
 	@echo Update bootanimation
 #	rm $(ZIP_DIR)/system/bin/bootanimation
-	cp -f other/bootanimation.zip $(ZIP_DIR)/system/media/bootanimation.zip
+#	cp -f other/bootanimation.zip $(ZIP_DIR)/system/media/bootanimation.zip
 	
 	@echo Remove usless stuff
-	rm -rf $(ZIP_DIR)/data/miui/apps/*.apk
+#	rm -rf $(ZIP_DIR)/data/miui/apps/*.apk
 	rm -rf $(ZIP_DIR)/system/priv-app/CMUpdater.apk
 	rm -rf $(ZIP_DIR)/system/priv-app/Dialer.apk
 	rm -rf $(ZIP_DIR)/system/priv-app/Keyguard.apk
